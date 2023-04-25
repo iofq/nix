@@ -1,17 +1,17 @@
-{ lib, nixpkgs, username, home-manager, ... }:
+{ lib, nixpkgs, username, home-manager, nixos-hardware, ... }:
 
 let
-  system = "x86_64-linux";                                  # System architecture
+  system = "x86_64-linux";
 
   pkgs = import nixpkgs {
     inherit system;
-    config.allowUnfree = true;                              # Allow proprietary software
+    config.allowUnfree = true;
   };
 
   lib = nixpkgs.lib;
 in
   {
-    t14 = lib.nixosSystem {                                # Laptop profile
+    t14 = lib.nixosSystem {
     inherit system;
     specialArgs = {
       inherit username;
@@ -22,6 +22,7 @@ in
     modules = [
       ./configuration.nix
       ./t14/configuration.nix
+      nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen1
       home-manager.nixosModules.home-manager {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;

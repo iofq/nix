@@ -4,7 +4,7 @@
     wl-clipboard
     autotiling-rs
     gammastep
-    grim
+    sway-contrib.grimshot
   ];
   systemd.user.services.autotiling = {
     Install = {
@@ -65,6 +65,17 @@
         "${modifier}+space" = "exec ${pkgs.dmenu}/bin/dmenu_path | ${pkgs.dmenu}/bin/dmenu | ${pkgs.findutils}/bin/xargs swaymsg exec --";
         "${modifier}+bracketleft" = "exec --no-startup-id grimshot --notify  save area /tmp/scrot-$(date \"+%Y-%m-%d\"T\"%H:%M:%S\").png";
         "${modifier}+bracketright" = "exec --no-startup-id grimshot --notify  copy area";
+        "XF86MonBrightnessDown" = "exec light -U 10";
+        "XF86MonBrightnessUp" = "exec light -A 10";
+        "XF86AudioRaiseVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ +1%'";
+        "XF86AudioLowerVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ -1%'";
+        "XF86AudioMute" = "exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'";
+      };
+      assigns = {
+        "9" = [
+          { class = "discord";}
+          { class = "Signal";}
+        ];
       };
       bars = [
         {
