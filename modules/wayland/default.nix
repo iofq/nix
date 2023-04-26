@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ home-manager, username, config, lib, pkgs, ... }:
 {
   home.packages = with pkgs; [
     wl-clipboard
@@ -65,6 +65,7 @@
         "${modifier}+space" = "exec ${pkgs.dmenu}/bin/dmenu_path | ${pkgs.dmenu}/bin/dmenu | ${pkgs.findutils}/bin/xargs swaymsg exec --";
         "${modifier}+bracketleft" = "exec --no-startup-id grimshot --notify  save area /tmp/scrot-$(date \"+%Y-%m-%d\"T\"%H:%M:%S\").png";
         "${modifier}+bracketright" = "exec --no-startup-id grimshot --notify  copy area";
+        "${modifier}+Shift+Ctrl+l" = "exec loginctl lock-session";
         "XF86MonBrightnessDown" = "exec light -U 10";
         "XF86MonBrightnessUp" = "exec light -A 10";
         "XF86AudioRaiseVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ +1%'";
@@ -181,5 +182,26 @@
         enable = false;
       };
     };
+  };
+  programs.swaylock = {
+    enable = true;
+    settings = {
+      color = "#764783";
+      daemonize = true;
+      clock = true;
+      ignore-empty-password = true;
+    };
+  };
+  services.swayidle = {
+    enable = true;
+    events = [
+      { event = "lock"; command = "${pkgs.swaylock}/bin/swaylock";}
+      { event = "before-sleep"; command = "${pkgs.swaylock}/bin/swaylock";}
+      { event = "after-resume"; command = "${pkgs.sway}/bin/swaymsg \"output * power on\"";}
+    ];
+    timeouts = [
+      { timeout = 600; command = "${pkgs.swaylock}/bin/swaylock";}
+      { timeout = 1200; command = "${pkgs.sway}/bin/swaymsg \"output * power off\"";}
+    ];
   };
 }

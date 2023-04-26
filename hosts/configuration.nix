@@ -13,5 +13,6 @@
     ];
   };
   users.groups.plugdev = {};
+  security.pam.services.swaylock = {};
   system.stateVersion = "22.11";
 }

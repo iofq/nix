@@ -33,6 +33,7 @@ in
           };
         };
         home-manager.users.${username} = {
+          programs.home-manager.enable = true;
           imports = [
             ./home.nix
             ./t14/home.nix

@@ -10,5 +10,6 @@
         ripgrep
       ];
     };
+    systemd.user.startServices = "sd-switch";
     xdg.enable = true;
 }
