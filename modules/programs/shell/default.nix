@@ -38,6 +38,7 @@
     export GPG_2FA="cjriddz@protonmail.com"
     export MANPAGER="nvim +Man!"
     export EDITOR="nvim"
+    export _JAVA_AWT_WM_NONREPARENTING=1 
     [[ $- != *i* ]] && return
     function exists {
       type $1 >/dev/null 2>&1

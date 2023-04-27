@@ -7,9 +7,12 @@
   home = {
     packages = with pkgs; [
       neofetch
+      pulseaudio
+      pulsemixer
+      alsa-utils
       discord
       signal-desktop
-      pulseaudio
+      runelite
     ];
   };
 }

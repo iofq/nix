@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ nixos-hardware, config, pkgs, ... }:
 {
   imports =
     [ 
@@ -21,5 +21,7 @@
       pulse.enable = true;
     };
     nixpkgs.config.allowUnfree = true;
+    boot.kernelPackages = pkgs.linuxPackages_latest;
+    hardware.opengl.enable = true;
     system.stateVersion = "22.11"; 
   }
