@@ -3,16 +3,17 @@
   imports = [
     ../../modules/wayland
     ../../modules/librewolf
+    ../home.nix
   ];
   home = {
     packages = with pkgs; [
-      neofetch
       pulseaudio
       pulsemixer
       alsa-utils
       discord
       signal-desktop
       runelite
+      framesh
     ];
   };
 }

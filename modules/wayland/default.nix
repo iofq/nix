@@ -71,6 +71,7 @@
         "XF86AudioRaiseVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ +1%'";
         "XF86AudioLowerVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ -1%'";
         "XF86AudioMute" = "exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'";
+        "XF86Display" = "exec 'swaymsg \"output eDP-1 toggle\"'";
       };
       assigns = {
         "9" = [
@@ -129,6 +130,10 @@
         };
       };
     };
+    extraConfig=''
+    bindswitch lid:on output eDP-1 disable
+    bindswitch lid:off output eDP-1 enable
+    '';
   };
   programs.i3status = {
     enable = true;
@@ -203,5 +208,42 @@
       { timeout = 600; command = "${pkgs.swaylock}/bin/swaylock";}
       { timeout = 1200; command = "${pkgs.sway}/bin/swaymsg \"output * power off\"";}
     ];
+  };
+  services.kanshi = {
+    enable = true;
+    profiles = {
+      nodock = {
+        outputs = [
+          {
+            criteria = "eDP-1";
+          }
+        ];
+      };
+      dock = {
+        outputs = [
+          {
+            criteria = "DP-4";
+            status = "enable";
+            mode = "1920x1080@60Hz";
+            position = "0,0";
+          }
+        ];
+      };
+      bothdock = {
+        outputs = [
+          {
+            criteria = "eDP-1";
+            status = "enable";
+            position = "0,1080";
+          }
+          {
+            criteria = "DP-4";
+            status = "enable";
+            mode = "1920x1080@60Hz";
+            position = "0,0";
+          }
+        ];
+      };
+    };
   };
 }

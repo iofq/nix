@@ -8,6 +8,8 @@
         htop
         appimage-run
         ripgrep
+        fluxcd
+        k9s
       ];
     };
     systemd.user.startServices = "sd-switch";

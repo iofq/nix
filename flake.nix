@@ -6,18 +6,19 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs"; }; 
+      inputs.nixpkgs.follows = "nixpkgs";
     }; 
-    outputs = { self, nixpkgs, home-manager, nixos-hardware, ... }:
-    let
-      username = "e";
-    in {
-      nixosConfigurations = (
-        import ./hosts {
-          inherit (nixpkgs) lib;
-          inherit nixos-hardware;
-          inherit nixpkgs home-manager username;
-        }
-        );
-      };
-    }
+    sops-nix.url = "github:Mic92/sops-nix";
+  }; 
+  outputs = { self, nixpkgs, home-manager, nixos-hardware, sops-nix, ... }:
+  let
+    username = "e";
+  in {
+    nixosConfigurations = (
+      import ./hosts {
+        inherit (nixpkgs) lib;
+        inherit nixpkgs home-manager nixos-hardware sops-nix username;
+      }
+      );
+    };
+  }

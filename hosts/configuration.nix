@@ -14,5 +14,6 @@
   };
   users.groups.plugdev = {};
   security.pam.services.swaylock = {};
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   system.stateVersion = "22.11";
 }

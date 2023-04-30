@@ -1,4 +1,4 @@
-{ nixos-hardware, config, pkgs, ... }:
+{ config, pkgs, nixos-hardware, sops-nix, ... }:
 {
   imports =
     [ 
@@ -12,6 +12,7 @@
     fonts = {
       fonts = with pkgs; [
         spleen
+        roboto
       ];
     };
     programs.light.enable = true;
