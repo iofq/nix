@@ -1,19 +1,19 @@
-{ username, pkgs, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ../../modules/wayland
     ../../modules/librewolf
-    ../home.nix
+    ../common.nix
   ];
   home = {
+    username = "e";
+    homeDirectory = "/home/e";
     packages = with pkgs; [
-      pulseaudio
-      pulsemixer
-      alsa-utils
       discord
       signal-desktop
       runelite
       framesh
+			iofqvim
     ];
   };
 }

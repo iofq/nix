@@ -1,4 +1,4 @@
-{ homeDirectory, pkgs, ...}:
+{ pkgs, host, ...}:
 {
   imports = [
     (import ./tmux.nix)
@@ -19,9 +19,8 @@
       ":q" = "exit";
       mpv = "mpv --no-keepaspect-window";
       sus = "systemctl suspend";
-      gitu = "git add . && git commit && git push";
-      rcp = "rsync -avh --progress";
-
+      hms = "home-manager switch --flake $NIX_FLAKE#${host.username}";
+      rbs = "sudo nixos-rebuild switch --flake $NIX_FLAKE#${host.hostName}";
     };
     shellOptions = [
       "cmdhist"
@@ -39,6 +38,7 @@
     export MANPAGER="nvim +Man!"
     export EDITOR="nvim"
     export _JAVA_AWT_WM_NONREPARENTING=1 
+    export NIX_FLAKE="/home/e/dev/nix"
     [[ $- != *i* ]] && return
     function exists {
       type $1 >/dev/null 2>&1

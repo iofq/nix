@@ -1,6 +1,7 @@
 [
+  ./dev.nix
   ./alacritty
-  ./nvim
+  #./nvim
   ./shell
   ./git
   ./2fa

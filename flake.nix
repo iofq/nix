@@ -1,5 +1,5 @@
 {
-  description = "Home Manager configuration";
+  description = "Home Manager && NixOS configuration";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -7,18 +7,19 @@
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
-    }; 
-    sops-nix.url = "github:Mic92/sops-nix";
-  }; 
-  outputs = { self, nixpkgs, home-manager, nixos-hardware, sops-nix, ... }:
+    };
+    nvim = {
+			url = "github:iofq/nvim.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+	};
+  };
+  outputs = { self, nixpkgs, home-manager, nixos-hardware, ... } @inputs:
   let
     username = "e";
   in {
-    nixosConfigurations = (
-      import ./hosts {
-        inherit (nixpkgs) lib;
-        inherit nixpkgs home-manager nixos-hardware sops-nix username;
-      }
+    nixosConfigurations = ( import ./nixos { inherit inputs; } );
+    homeConfigurations = (
+      import ./home { inherit inputs; }
       );
     };
   }

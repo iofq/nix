@@ -130,10 +130,6 @@
         };
       };
     };
-    extraConfig=''
-    bindswitch lid:on output eDP-1 disable
-    bindswitch lid:off output eDP-1 enable
-    '';
   };
   programs.i3status = {
     enable = true;
@@ -202,11 +198,11 @@
     events = [
       { event = "lock"; command = "${pkgs.swaylock}/bin/swaylock";}
       { event = "before-sleep"; command = "${pkgs.swaylock}/bin/swaylock";}
-      { event = "after-resume"; command = "${pkgs.sway}/bin/swaymsg \"output * power on\"";}
+      { event = "after-resume"; command = "${pkgs.sway}/bin/swaymsg \"output * toggle\"";}
     ];
     timeouts = [
       { timeout = 600; command = "${pkgs.swaylock}/bin/swaylock";}
-      { timeout = 1200; command = "${pkgs.sway}/bin/swaymsg \"output * power off\"";}
+      { timeout = 1200; command = "${pkgs.sway}/bin/swaymsg \"output * toggle\"";}
     ];
   };
   services.kanshi = {

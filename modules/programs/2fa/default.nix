@@ -28,7 +28,4 @@
     enable = true;
     pinentryFlavor = "curses";
   };
-  home.packages = with pkgs; [
-    oath-toolkit
-  ];
 }
