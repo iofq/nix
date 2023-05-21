@@ -58,7 +58,7 @@
     bind '"\C-k": previous-history'
     bind '"\C-j": next-history'
     function cd {
-      cmd="ls"
+      cmd="ls --color=auto"
       builtin cd "$@" && $cmd
     }
     exists "kubectl" && source <(kubectl completion bash)

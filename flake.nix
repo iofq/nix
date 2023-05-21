@@ -9,9 +9,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nvim = {
-			url = "github:iofq/nvim.nix";
+      url = "github:iofq/nvim.nix";
       inputs.nixpkgs.follows = "nixpkgs";
-	};
+    };
   };
   outputs = { self, nixpkgs, home-manager, nixos-hardware, ... } @inputs:
   let
