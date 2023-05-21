@@ -5,7 +5,12 @@
       ./hardware-configuration.nix
       ./nano.nix
     ];
-    networking.hostName = host.hostName; 
+    networking.hostName = host.hostName;
+    networking.firewall = {
+      enable = true;
+      allowedTCPPorts = [];
+      allowedUDPPorts = [];
+    }
     environment.systemPackages = with pkgs; [
       cryptsetup
     ];
