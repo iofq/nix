@@ -21,6 +21,7 @@
       sus = "systemctl suspend";
       hms = "home-manager switch --flake $NIX_FLAKE#${host.username}";
       rbs = "sudo nixos-rebuild switch --flake $NIX_FLAKE#${host.hostName}";
+      nvim-dev = "nix run ~/dev/nvim.nix";
     };
     shellOptions = [
       "cmdhist"

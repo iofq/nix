@@ -5,21 +5,23 @@
       ./hardware-configuration.nix
       ./nano.nix
     ];
-    networking.hostName = host.hostName;
-    networking.firewall = {
-      enable = true;
-      allowedTCPPorts = [];
-      allowedUDPPorts = [];
-    }
     environment.systemPackages = with pkgs; [
       cryptsetup
     ];
+
+    virtualisation.podman = {
+      enable = true;
+      dockerCompat = true;
+    };
 
     programs.light.enable = true;
     services.pipewire = {
       enable = true;
       alsa.enable = true;
       pulse.enable = true;
+    };
+    programs.ssh = {
+      startAgent = true;
     };
 
     hardware.opengl.enable = true;

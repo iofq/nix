@@ -1,6 +1,5 @@
 { inputs, pkgs, ... }:
 {
-  imports = ( import ../modules/programs );
   programs.home-manager.enable = true;
   nixpkgs.config.allowUnfree = true;
   nix = {
@@ -24,7 +23,7 @@
       spleen
     ];
   };
-
+  imports = ( import ../modules/programs );
   xdg.enable = true;
   fonts.fontconfig.enable = true;
   systemd.user.startServices = "sd-switch";

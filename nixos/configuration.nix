@@ -7,6 +7,12 @@
 
   users.groups.plugdev = {}; # Create plugdev group
 
+  networking.hostName = host.hostName;
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [];
+    allowedUDPPorts = [];
+  };
   users.users.${host.username} = {
     isNormalUser = true;
     extraGroups = [ 
@@ -25,7 +31,7 @@
     dates = "00:00";
     options = "--delete-older-than 14d";
   };
-  nixpkgs.config.allowUnfree = true;
 
+  nixpkgs.config.allowUnfree = true;
   system.stateVersion = "22.11";
 }

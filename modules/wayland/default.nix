@@ -202,7 +202,7 @@
     ];
     timeouts = [
       { timeout = 600; command = "${pkgs.swaylock}/bin/swaylock";}
-      { timeout = 1200; command = "${pkgs.sway}/bin/swaymsg \"output * toggle\"";}
+      { timeout = 600; command = "${pkgs.sway}/bin/swaymsg \"output * toggle\"";}
     ];
   };
   services.kanshi = {
@@ -218,7 +218,7 @@
       dock = {
         outputs = [
           {
-            criteria = "DP-4";
+            criteria = "HDMI-A-1";
             status = "enable";
             mode = "1920x1080@60Hz";
             position = "0,0";
@@ -229,11 +229,11 @@
         outputs = [
           {
             criteria = "eDP-1";
-            status = "enable";
+            status = "disable";
             position = "0,1080";
           }
           {
-            criteria = "DP-4";
+            criteria = "HDMI-A-1";
             status = "enable";
             mode = "1920x1080@60Hz";
             position = "0,0";

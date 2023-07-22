@@ -6,7 +6,7 @@
       config.allowUnfree = true;
       overlays = [
         (final: prev: {
-          inherit (inputs.nvim.packages.${final.system}) iofqvim;
+          inherit (inputs.nvim.packages.${final.system}) full;
         })
       ];
     };
@@ -19,6 +19,7 @@
     };
     modules = [
       ./t14/home.nix
+      ./common.nix
     ];
   };
 }

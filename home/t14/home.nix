@@ -3,7 +3,6 @@
   imports = [
     ../../modules/wayland
     ../../modules/librewolf
-    ../common.nix
   ];
   home = {
     username = "e";
@@ -13,7 +12,7 @@
       signal-desktop
       runelite
       framesh
-			iofqvim
+      prismlauncher
     ];
   };
 }
