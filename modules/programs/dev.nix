@@ -11,5 +11,6 @@
     nodePackages.pnpm
     gnumake
     gcc
+    go
   ];
 }

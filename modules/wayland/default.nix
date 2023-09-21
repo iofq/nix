@@ -186,6 +186,7 @@
   };
   programs.swaylock = {
     enable = true;
+    package = pkgs.swaylock-effects;
     settings = {
       color = "#764783";
       daemonize = true;
@@ -196,13 +197,14 @@
   services.swayidle = {
     enable = true;
     events = [
-      { event = "lock"; command = "${pkgs.swaylock}/bin/swaylock";}
-      { event = "before-sleep"; command = "${pkgs.swaylock}/bin/swaylock";}
-      { event = "after-resume"; command = "${pkgs.sway}/bin/swaymsg \"output * toggle\"";}
-    ];
-    timeouts = [
-      { timeout = 600; command = "${pkgs.swaylock}/bin/swaylock";}
-      { timeout = 600; command = "${pkgs.sway}/bin/swaymsg \"output * toggle\"";}
+      {
+        event = "before-sleep";
+        command = "${config.programs.swaylock.package}/bin/swaylock";
+      }
+      {
+        event = "lock";
+        command = "${config.programs.swaylock.package}/bin/swaylock";
+      }
     ];
   };
   services.kanshi = {

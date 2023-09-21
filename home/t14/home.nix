@@ -12,7 +12,10 @@
       signal-desktop
       runelite
       framesh
+      ledger-live-desktop
       prismlauncher
+      chromium
+      oath-toolkit
     ];
   };
 }
