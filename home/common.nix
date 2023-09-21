@@ -25,6 +25,7 @@
   };
   imports = ( import ../modules/programs );
   xdg.enable = true;
+  xdg.configFile."mimeapps.list".force = true;
   fonts.fontconfig.enable = true;
   systemd.user.startServices = "sd-switch";
 }

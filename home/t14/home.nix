@@ -15,7 +15,6 @@
       ledger-live-desktop
       prismlauncher
       chromium
-      oath-toolkit
     ];
   };
 }
