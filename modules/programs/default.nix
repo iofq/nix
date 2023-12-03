@@ -7,4 +7,5 @@
   ./2fa
   ./direnv
   ./xdg
+  ./warrior
 ]

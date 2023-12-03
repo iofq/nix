@@ -35,7 +35,7 @@
     bashrcExtra = ''
     export PROMPT_COMMAND="prompt_command;history -a"
     export PATH="/usr/local/go/bin:~/go/bin:~/.bin:~/.local/bin:$PATH"
-    export GPG_2FA="cjriddz@protonmail.com"
+    export GPG_2FA="mail@10110110.xyz"
     export MANPAGER="nvim +Man!"
     export EDITOR="nvim"
     export _JAVA_AWT_WM_NONREPARENTING=1 

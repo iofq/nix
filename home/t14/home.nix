@@ -15,6 +15,7 @@
       ledger-live-desktop
       prismlauncher
       chromium
+      jdk17
     ];
   };
 }

@@ -7,8 +7,8 @@
     ];
     environment.systemPackages = with pkgs; [
       cryptsetup
+      nfs-utils
     ];
-
     virtualisation.podman = {
       enable = true;
       dockerCompat = true;
@@ -23,7 +23,16 @@
     programs.ssh = {
       startAgent = true;
     };
-
+    services.flatpak.enable = true;
+    xdg = {
+      portal = {
+        enable = true;
+        extraPortals = with pkgs; [
+          xdg-desktop-portal-wlr
+          xdg-desktop-portal-gtk
+        ];
+      };
+    };
     hardware.opengl.enable = true;
 
     boot.kernelPackages = pkgs.linuxPackages_latest;

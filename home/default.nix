@@ -7,6 +7,7 @@
       overlays = [
         (final: prev: {
           inherit (inputs.nvim.packages.${final.system}) full;
+          inherit (inputs.tfa.packages.${final.system}) twofa;
         })
       ];
     };

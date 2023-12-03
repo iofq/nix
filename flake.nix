@@ -12,6 +12,10 @@
       url = "github:iofq/nvim.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    tfa = {
+      url = "github:iofq/2fa";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = { self, nixpkgs, home-manager, nixos-hardware, nvim, ... } @inputs:
   let

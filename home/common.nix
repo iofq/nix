@@ -21,6 +21,7 @@
       appimage-run
       wireguard-tools
       spleen
+      mpv
     ];
   };
   imports = ( import ../modules/programs );
