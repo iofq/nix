@@ -19,11 +19,33 @@
   };
   outputs = { self, nixpkgs, home-manager, nixos-hardware, nvim, ... } @inputs:
   let
-    username = "e";
-  in {
-    nixosConfigurations = ( import ./nixos { inherit inputs; } );
-    homeConfigurations = (
-      import ./home { inherit inputs; }
-      );
+    attrs = {
+      username = "e";
     };
-  }
+    system = "x86_64-linux";
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+      overlays = [
+        (final: prev: {
+          inherit (inputs.nvim.packages.${final.system}) full;
+          inherit (inputs.tfa.packages.${final.system}) twofa;
+        })
+      ];
+    };
+  in {
+    nixosConfigurations = (
+      import ./nixos { inherit inputs pkgs attrs; }
+    );
+    homeConfigurations = (
+      import ./home-manager { inherit inputs pkgs attrs; }
+    );
+    devShells.${system}.default = pkgs.mkShell {
+      buildInputs = [
+        pkgs.nix
+        pkgs.home-manager
+        pkgs.git
+      ];
+    };
+  };
+}

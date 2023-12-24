@@ -24,16 +24,27 @@
       startAgent = true;
     };
     services.flatpak.enable = true;
+    services.dbus.enable = true;
     xdg = {
       portal = {
         enable = true;
-        extraPortals = with pkgs; [
-          xdg-desktop-portal-wlr
-          xdg-desktop-portal-gtk
-        ];
+        xdgOpenUsePortal = true;
+        wlr.enable = true;
+        config = {
+          common = {
+            default = [
+              "wlr"
+            ];
+          };
+        };
       };
     };
     hardware.opengl.enable = true;
+    hardware.opengl.extraPackages = [ 
+      pkgs.mesa.drivers
+      pkgs.libGL
+    ];
+    hardware.opengl.setLdLibraryPath = true;
 
     boot.kernelPackages = pkgs.linuxPackages_latest;
     system.stateVersion = "22.11"; 

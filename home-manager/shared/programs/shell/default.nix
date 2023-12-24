@@ -1,15 +1,14 @@
 { pkgs, host, ...}:
 {
   imports = [
-    (import ./tmux.nix)
+    ./tmux.nix
+    ./git.nix
   ];
   programs.bash = {
     enable = true;
     enableCompletion = true;
     historyControl = [ "ignorespace" ];
     historyIgnore = [
-      "ls"
-      "cd"
       ":q"
       "exit"
     ];
@@ -22,6 +21,8 @@
       hms = "home-manager switch --flake $NIX_FLAKE#${host.username}";
       rbs = "sudo nixos-rebuild switch --flake $NIX_FLAKE#${host.hostName}";
       nvim-dev = "nix run ~/dev/nvim.nix";
+      g = "git";
+      k = "kubectl";
     };
     shellOptions = [
       "cmdhist"
@@ -67,6 +68,7 @@
   };
   programs.fzf = {
     enable = true;
+    historyWidgetOptions = ["--height 60% --preview ''"];
     fileWidgetCommand = "command find -L . -mindepth 1 -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' -prune";
   };
 }

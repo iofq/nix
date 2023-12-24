@@ -1,4 +1,4 @@
-{ home-manager, username, config, lib, pkgs, ... }:
+{ home-manager, config, lib, pkgs, ... }:
 {
   home.packages = with pkgs; [
     wl-clipboard
@@ -61,6 +61,8 @@
       keybindings = let
         modifier = config.wayland.windowManager.sway.config.modifier;
       in lib.mkOptionDefault {
+        Prior = "nop";
+        Next = "nop";
         "${modifier}+x" = "kill";
         "${modifier}+space" = "exec ${pkgs.dmenu}/bin/dmenu_path | ${pkgs.dmenu}/bin/dmenu | ${pkgs.findutils}/bin/xargs swaymsg exec --";
         "${modifier}+bracketleft" = "exec --no-startup-id grimshot --notify  save area /tmp/scrot-$(date \"+%Y-%m-%d\"T\"%H:%M:%S\").png";
