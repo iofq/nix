@@ -5,6 +5,16 @@
       ./hardware-configuration.nix
       ./nano.nix
     ];
+    boot.loader.systemd-boot.enable = true;
+    boot.loader.efi.canTouchEfiVariables = true;
+
+    networking.networkmanager.enable = true;
+    networking.firewall = {
+      enable = true;
+      allowedTCPPorts = [11111];
+      allowedUDPPorts = [];
+      logRefusedConnections = true;
+    };
     environment.systemPackages = with pkgs; [
       cryptsetup
       nfs-utils
@@ -15,6 +25,7 @@
     };
 
     programs.light.enable = true;
+    security.pam.services.swaylock = {};
     services.pipewire = {
       enable = true;
       alsa.enable = true;

@@ -1,4 +1,4 @@
-{ pkgs, host, ...}:
+{ host, ... }:
 {
   imports = [
     ./tmux.nix
@@ -20,6 +20,7 @@
       sus = "systemctl suspend";
       hms = "home-manager switch --flake $NIX_FLAKE#${host.username}";
       rbs = "sudo nixos-rebuild switch --flake $NIX_FLAKE#${host.hostName}";
+      update = "nix flake update $NIX_FLAKE && rbs && hms";
       nvim-dev = "nix run ~/dev/nvim.nix";
       g = "git";
       k = "kubectl";

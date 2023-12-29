@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ inputs, ... }:
 {
   programs.home-manager.enable = true;
   nix = {
@@ -6,6 +6,11 @@
   };
   home = {
     stateVersion = "22.11";
+    file = {
+      ".local/bin" = {
+        source = ../bin;
+      };
+    };
   };
   imports = [ ./shared/programs/min.nix ];
   xdg.enable = true;

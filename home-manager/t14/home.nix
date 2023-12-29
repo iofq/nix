@@ -30,6 +30,15 @@
 
     ];
   };
+  programs.ssh = {
+    enable = true;
+    matchBlocks = {
+      "10110110.xyz" = {
+        hostname = "10110110.xyz";
+        identityFile = "/home/e/.ssh/racknerd";
+      };
+    };
+  };
   fonts.fontconfig.enable = true;
   systemd.user.startServices = "sd-switch";
 }

@@ -35,7 +35,7 @@
     };
   in {
     nixosConfigurations = (
-      import ./nixos { inherit inputs pkgs attrs; }
+      import ./nixos { inherit inputs pkgs attrs system; }
     );
     homeConfigurations = (
       import ./home-manager { inherit inputs pkgs attrs; }
