@@ -1,4 +1,4 @@
-{ home-manager, config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 {
   home.packages = with pkgs; [
     wl-clipboard
@@ -6,6 +6,11 @@
     gammastep
     sway-contrib.grimshot
   ];
+  home.sessionVariables = {
+    # needed for Sway and Firefox to play nice
+    XDG_CURRENT_DESKTOP = "sway";
+    MOZ_DBUS_REMOTE=1;
+  };
   systemd.user.services.autotiling = {
     Install = {
       WantedBy = [ "sway-session.target" ];

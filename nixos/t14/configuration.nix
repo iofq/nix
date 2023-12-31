@@ -1,4 +1,4 @@
-{ pkgs, nixos-hardware, host, ... }:
+{ pkgs, ... }:
 {
   imports =
     [ 
@@ -36,19 +36,21 @@
     };
     services.flatpak.enable = true;
     services.dbus.enable = true;
-    xdg = {
-      portal = {
+    xdg.portal = {
         enable = true;
         xdgOpenUsePortal = true;
         wlr.enable = true;
+        extraPortals = [
+            pkgs.xdg-desktop-portal-gtk
+            pkgs.xdg-desktop-portal-wlr
+        ];
         config = {
           common = {
             default = [
-              "wlr"
+              "*"
             ];
           };
         };
-      };
     };
     hardware.opengl.enable = true;
     hardware.opengl.extraPackages = [ 
