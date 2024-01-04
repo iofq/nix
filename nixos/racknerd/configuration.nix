@@ -1,6 +1,7 @@
 { inputs, pkgs, system, ... }: {
   imports = [
     ./hardware-configuration.nix
+    ./minecraft.nix
   ];
   environment.systemPackages = with pkgs; [
     nfs-utils

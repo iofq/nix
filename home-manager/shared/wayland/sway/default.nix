@@ -238,7 +238,7 @@
         outputs = [
           {
             criteria = "eDP-1";
-            status = "disable";
+            status = "enable";
             position = "0,1080";
           }
           {
