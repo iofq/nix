@@ -27,4 +27,17 @@
       ./racknerd/configuration.nix
     ];
   };
+  contabo = inputs.nixpkgs.lib.nixosSystem {
+    specialArgs = {
+      inherit inputs system pkgs;
+      host = {
+        hostName = "eef";
+        username = attrs.username;
+      };
+    };
+    modules = [
+      ./configuration.nix
+      ./contabo/configuration.nix
+    ];
+  };
 }

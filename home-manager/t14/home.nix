@@ -33,9 +33,17 @@
   programs.ssh = {
     enable = true;
     matchBlocks = {
-      "10110110.xyz" = {
-        hostname = "10110110.xyz";
+      "racknerd.10110110.xyz" = {
+        hostname = "contabo.10110110.xyz";
         identityFile = "/home/e/.ssh/racknerd";
+      };
+      "contabo.10110110.xyz" = {
+        hostname = "contabo.10110110.xyz";
+        identityFile = "/home/e/.ssh/id_ed25519";
+      };
+      "consensus" = {
+        hostname = "consensus";
+        identityFile = "/home/e/.ssh/id_ed25519";
       };
     };
   };
