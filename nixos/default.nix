@@ -27,17 +27,19 @@
       ./racknerd/configuration.nix
     ];
   };
-  contabo = inputs.nixpkgs.lib.nixosSystem {
+  htz = inputs.nixpkgs.lib.nixosSystem {
     specialArgs = {
       inherit inputs system pkgs;
       host = {
-        hostName = "eef";
+        hostName = "htz";
         username = attrs.username;
       };
     };
     modules = [
       ./configuration.nix
-      ./contabo/configuration.nix
+      ./htz/configuration.nix
+      inputs.ethereum-nix.nixosModules.default
+      inputs.microvm.nixosModules.host
     ];
   };
 }

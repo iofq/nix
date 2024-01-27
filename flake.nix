@@ -16,8 +16,17 @@
       url = "github:iofq/2fa";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    ethereum-nix = {
+      url = "git+file:///home/e/dev/ethereum.nix/";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.foundry-nix.url = "github:shazow/foundry.nix";
+    };
+    microvm = {
+        url = "github:astro/microvm.nix";
+        inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
-  outputs = { self, nixpkgs, home-manager, nixos-hardware, nvim, ... } @inputs:
+  outputs = { self, nixpkgs, home-manager, nixos-hardware, nvim, ethereum-nix, ... } @inputs:
   let
     attrs = {
       username = "e";
@@ -35,7 +44,7 @@
     };
   in {
     nixosConfigurations = (
-      import ./nixos { inherit inputs pkgs attrs system; }
+      import ./nixos { inherit inputs pkgs attrs system ethereum-nix; }
     );
     homeConfigurations = (
       import ./home-manager { inherit inputs pkgs attrs; }

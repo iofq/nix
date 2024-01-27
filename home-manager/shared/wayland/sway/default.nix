@@ -5,6 +5,7 @@
     autotiling-rs
     gammastep
     sway-contrib.grimshot
+    jq
   ];
   home.sessionVariables = {
     # needed for Sway and Firefox to play nice
@@ -122,6 +123,7 @@
         "type:touchpad" = {
           natural_scroll = "enabled";
           accel_profile = "flat";
+          pointer_accel = "0.4";
           tap = "enabled";
           tap_button_map = "lrm";
           dwt = "enabled";
@@ -137,6 +139,10 @@
         };
       };
     };
+    extraConfig = ''
+    bindswitch --reload --locked lid:on exec "[ $(swaymsg -t get_outputs | jq '. | length') -gt 1 ] && swaymsg output eDP-1 disable"
+    bindswitch --reload --locked lid:off output eDP-1 enable
+    '';
   };
   programs.i3status = {
     enable = true;

@@ -28,8 +28,8 @@
         style = "Block";
         unfocused_hollow = true;
       };
-      draw_bold_text_with_bright_colors = true;
       colors = {
+        draw_bold_text_with_bright_colors = true;
         primary = {
           background = "#090410";
           foreground = "#bababd";
@@ -59,7 +59,7 @@
           cursor = "#00CC22";
         };
       };
-      key_bindings = [
+      keyboard.bindings = [
         {
           key = "Q";
           mode = "Vi";

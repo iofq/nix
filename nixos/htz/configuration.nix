@@ -1,13 +1,16 @@
 { pkgs, ... }: {
   imports = [
     ./hardware-configuration.nix
+    ./vms.nix
+    #./eth.nix
   ];
   environment.systemPackages = with pkgs; [
     nfs-utils
+    vim
   ];
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = false;
-  networking.hostName = "eef";
+  networking.hostName = "htz";
   networking.domain = "";
   networking.firewall = {
     enable = true;
@@ -34,5 +37,4 @@
   };
   security.sudo.wheelNeedsPassword = false;
   nix.settings.trusted-users = ["e"];
-  system.stateVersion = "22.11"; 
 }

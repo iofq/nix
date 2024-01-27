@@ -18,7 +18,6 @@
       discord
 
       # apps
-      framesh
       chromium
 
       # font
@@ -33,12 +32,12 @@
   programs.ssh = {
     enable = true;
     matchBlocks = {
-      "racknerd.10110110.xyz" = {
-        hostname = "contabo.10110110.xyz";
+      "racknerd" = {
+        hostname = "racknerd.10110110.xyz";
         identityFile = "/home/e/.ssh/racknerd";
       };
-      "contabo.10110110.xyz" = {
-        hostname = "contabo.10110110.xyz";
+      "htz" = {
+        hostname = "htz.10110110.xyz";
         identityFile = "/home/e/.ssh/id_ed25519";
       };
       "consensus" = {
