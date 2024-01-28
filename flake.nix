@@ -5,6 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     deploy-rs.url = "github:serokell/deploy-rs";
+    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,8 +24,8 @@
       inputs.foundry-nix.url = "github:shazow/foundry.nix";
     };
     microvm = {
-        url = "github:astro/microvm.nix";
-        inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:astro/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
   outputs = { self, nixpkgs, home-manager, nixos-hardware, nvim, ethereum-nix, deploy-rs, ... } @inputs:
@@ -46,37 +47,48 @@
   in {
     nixosConfigurations = (
       import ./nixos { inherit inputs pkgs attrs system ethereum-nix; }
-    );
-    homeConfigurations = (
-      import ./home-manager { inherit inputs pkgs attrs; }
       );
-    deploy.nodes = {
-      htz = {
-        hostname = "htz";
-        sshUser = "root";
-        remoteBuild = true;
-        profiles.system = {
-          user = "root";
-          path = deploy-rs.lib.${system}.activate.nixos self.nixosConfigurations.htz;
+      homeConfigurations = (
+        import ./home-manager { inherit inputs pkgs attrs; }
+        );
+        deploy.nodes = {
+          htz = {
+            hostname = "htz";
+            sshUser = "root";
+            remoteBuild = true;
+            profiles.system = {
+              user = "root";
+              path = deploy-rs.lib.${system}.activate.nixos self.nixosConfigurations.htz;
+            };
+          };
+          racknerd = {
+            hostname = "racknerd";
+            sshUser = "e";
+            remoteBuild = true;
+            profiles.system = {
+              user = "root";
+              path = deploy-rs.lib.${system}.activate.nixos self.nixosConfigurations.rknrd;
+            };
+          };
+        };
+        checks = {
+          pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+            src = ./.;
+            hooks = {
+              typos.enable = true;
+              alejandra.enable = true;
+              deadnix.enable = true;
+              statix.enable = true;
+            };
+          };
+        };
+        devShells.${system}.default = pkgs.mkShell {
+          buildInputs = [
+            pkgs.nix
+            pkgs.home-manager
+            pkgs.git
+            deploy-rs.packages.${system}.deploy-rs
+          ];
         };
       };
-      racknerd = {
-        hostname = "racknerd";
-        sshUser = "e";
-        remoteBuild = true;
-        profiles.system = {
-          user = "root";
-          path = deploy-rs.lib.${system}.activate.nixos self.nixosConfigurations.rknrd;
-        };
-      };
-    };
-    devShells.${system}.default = pkgs.mkShell {
-      buildInputs = [
-        pkgs.nix
-        pkgs.home-manager
-        pkgs.git
-        deploy-rs.packages.${system}.deploy-rs
-      ];
-    };
-  };
-}
+    }

@@ -3,6 +3,7 @@
   imports = [
     ./tmux.nix
     ./git.nix
+    ./direnv.nix
   ];
   programs.bash = {
     enable = true;

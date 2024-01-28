@@ -1,4 +1,4 @@
-{ addressList, ... }: {
+{ ... }: {
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [80];
