@@ -19,7 +19,7 @@
   };
   fileSystems = {
     "/boot" = {
-      device = "/dev/disk/by-uuid/5679-B4CD";
+      device = "/dev/disk/by-uuid/8480-5FBB";
       fsType = "vfat";
     };
     "/" = {
@@ -52,10 +52,11 @@
         matchConfig.Name = "microvm";
         networkConfig = {
           DHCPServer = true;
+          IPv6SendRA = true;
         };
         addresses = [ {
           addressConfig.Address = "10.0.0.1/24";
-        }];
+        } ];
       };
       "11-microvm" = {
         matchConfig.Name = "vm-*";

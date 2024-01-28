@@ -15,6 +15,7 @@
   };
   rknrd = inputs.nixpkgs.lib.nixosSystem {
     specialArgs = {
+      inherit inputs system pkgs;
       host = {
         hostName = "rknrd";
         username = attrs.username;

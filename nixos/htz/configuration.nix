@@ -5,7 +5,6 @@
 #./eth.nix
   ];
   environment.systemPackages = with pkgs; [
-    nfs-utils
     vim
   ];
   networking = {
@@ -35,11 +34,6 @@
       isNormalUser = true;
       extraGroups = [ "wheel" ];
       home = "/home/e";
-      packages = with pkgs; [
-        vim
-        htop
-        tree
-      ];
       openssh.authorizedKeys.keys = [''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHM4Zr0PFN7QdOG2aJ+nuzRCK6caulrpY6bphA1Ppl8Y e@t14''];
     };
   };
