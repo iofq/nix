@@ -91,7 +91,7 @@
       pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
         src = ./.;
         hooks.treefmt.enable = true;
-        hooks.treefmt.package = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
+        hooks.treefmt.package = pkgs: treefmtEval.${pkgs.system}.config.build.wrapper;
       };
     };
     formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
