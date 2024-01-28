@@ -1,11 +1,14 @@
-{ pkgs, attrs, ... }:
 {
+  pkgs,
+  attrs,
+  ...
+}: {
   imports = [
     ../shared/programs/default.nix
     ../shared/wayland/default.nix
   ];
   home = {
-    username = attrs.username;
+    inherit (attrs) username;
     homeDirectory = "/home/" + attrs.username;
     packages = with pkgs; [
       # gaming
@@ -26,7 +29,6 @@
       # sysutils
       appimage-run
       wireguard-tools
-
     ];
   };
   programs.ssh = {

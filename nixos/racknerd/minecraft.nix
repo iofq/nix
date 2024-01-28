@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   services.minecraft-server = {
     enable = true;
     eula = true;
@@ -16,5 +16,4 @@
       k359 = "a5ccc07c-144d-4dd0-b07c-48c4d5302b58";
     };
   };
-
 }

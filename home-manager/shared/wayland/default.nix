@@ -1,5 +1,4 @@
-{ home-manager, config, lib, pkgs, ... }:
-{
+{...}: {
   imports = [
     ./librewolf
     ./alacritty

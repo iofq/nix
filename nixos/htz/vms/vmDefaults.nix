@@ -1,4 +1,8 @@
-{ name, addressList, ...}: {
+{
+  name,
+  addressList,
+  ...
+}: {
   systemd.network = {
     enable = true;
     networks."20-lan" = {
@@ -27,11 +31,12 @@
     root = {
       openssh.authorizedKeys.keys = [
         ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIItTJm2iu/5xacOoh4/JAvMtHE62duDlVVXpvVP+uQMR root@htz''
-        ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILU2TUxKyGKoZ68IG4hw23RmxVf72u5K9W0StkgTr0b2 e@t14'' ];
+        ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILU2TUxKyGKoZ68IG4hw23RmxVf72u5K9W0StkgTr0b2 e@t14''
+      ];
     };
     e = {
       isNormalUser = true;
-      extraGroups = [ "wheel" ];
+      extraGroups = ["wheel"];
       openssh.authorizedKeys.keys = [
         ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIItTJm2iu/5xacOoh4/JAvMtHE62duDlVVXpvVP+uQMR root@htz''
         ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILU2TUxKyGKoZ68IG4hw23RmxVf72u5K9W0StkgTr0b2 e@t14''

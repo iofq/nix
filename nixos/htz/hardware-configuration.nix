@@ -1,6 +1,9 @@
-{ modulesPath, lib, ... }:
 {
-  imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
+  modulesPath,
+  lib,
+  ...
+}: {
+  imports = [(modulesPath + "/profiles/qemu-guest.nix")];
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   boot = {
     tmp.cleanOnBoot = true;
@@ -11,11 +14,11 @@
     };
     initrd.availableKernelModules = [
       "ata_piix"
-        "uhci_hcd"
-        "xen_blkfront"
-        "vmw_pvscsi"
+      "uhci_hcd"
+      "xen_blkfront"
+      "vmw_pvscsi"
     ];
-    initrd.kernelModules = [ "nvme" ];
+    initrd.kernelModules = ["nvme"];
   };
   fileSystems = {
     "/boot" = {
@@ -27,16 +30,18 @@
       fsType = "ext4";
     };
   };
-  swapDevices = [{
-    device = "/dev/dm-1";
-  }];
+  swapDevices = [
+    {
+      device = "/dev/dm-1";
+    }
+  ];
   zramSwap.enable = false;
   networking = {
     useNetworkd = true;
     nat = {
       enable = true;
       externalInterface = "enp0s31f6";
-      internalInterfaces = [ "microvm" ];
+      internalInterfaces = ["microvm"];
     };
   };
   systemd.network = {
@@ -54,9 +59,11 @@
           DHCPServer = true;
           IPv6SendRA = true;
         };
-        addresses = [ {
-          addressConfig.Address = "10.0.0.1/24";
-        } ];
+        addresses = [
+          {
+            addressConfig.Address = "10.0.0.1/24";
+          }
+        ];
       };
       "11-microvm" = {
         matchConfig.Name = "vm-*";

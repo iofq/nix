@@ -1,5 +1,8 @@
-{ pkgs, config, ... }:
 {
+  pkgs,
+  config,
+  ...
+}: {
   programs.taskwarrior = {
     enable = true;
     colorTheme = "solarized-dark-256";

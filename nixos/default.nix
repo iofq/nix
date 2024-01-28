@@ -1,10 +1,16 @@
-{ inputs, pkgs, attrs, system, ... }: {
+{
+  inputs,
+  pkgs,
+  attrs,
+  system,
+  ...
+}: {
   t14 = inputs.nixpkgs.lib.nixosSystem {
     specialArgs = {
       inherit inputs system pkgs;
       host = {
         hostName = "t14";
-        username = attrs.username;
+        inherit (attrs) username;
       };
     };
     modules = [
@@ -18,7 +24,7 @@
       inherit inputs system pkgs;
       host = {
         hostName = "rknrd";
-        username = attrs.username;
+        inherit (attrs) username;
       };
     };
     modules = [
@@ -38,7 +44,7 @@
       };
       host = {
         hostName = "htz";
-        username = attrs.username;
+        inherit (attrs) username;
       };
     };
     modules = [

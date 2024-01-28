@@ -1,12 +1,16 @@
-{ inputs, pkgs, attrs, ...}:
 {
+  inputs,
+  pkgs,
+  attrs,
+  ...
+}: {
   "e" = inputs.home-manager.lib.homeManagerConfiguration {
     inherit pkgs;
     extraSpecialArgs = {
       inherit inputs attrs;
       host = {
         hostName = "t14";
-        username = attrs.username;
+        inherit (attrs) username;
       };
     };
     modules = [
@@ -20,7 +24,7 @@
       inherit inputs attrs;
       host = {
         hostName = "e";
-        username = attrs.username;
+        inherit (attrs) username;
       };
     };
     modules = [
@@ -28,4 +32,3 @@
     ];
   };
 }
-

@@ -1,5 +1,9 @@
-{ config, lib, pkgs, ... }:
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   home.packages = with pkgs; [
     wl-clipboard
     autotiling-rs
@@ -10,12 +14,12 @@
   home.sessionVariables = {
     # needed for Sway and Firefox to play nice
     XDG_CURRENT_DESKTOP = "sway";
-    MOZ_DBUS_REMOTE=1;
+    MOZ_DBUS_REMOTE = 1;
   };
   systemd.user.services.autotiling = {
     Install = {
-      WantedBy = [ "sway-session.target" ];
-      PartOf = [ "graphical-session.target" ]; 
+      WantedBy = ["sway-session.target"];
+      PartOf = ["graphical-session.target"];
     };
     Service = {
       ExecStart = "${pkgs.autotiling-rs}/bin/autotiling-rs";
@@ -65,26 +69,27 @@
       };
       modifier = "Mod4";
       keybindings = let
-        modifier = config.wayland.windowManager.sway.config.modifier;
-      in lib.mkOptionDefault {
-        Prior = "nop";
-        Next = "nop";
-        "${modifier}+x" = "kill";
-        "${modifier}+space" = "exec ${pkgs.dmenu}/bin/dmenu_path | ${pkgs.dmenu}/bin/dmenu | ${pkgs.findutils}/bin/xargs swaymsg exec --";
-        "${modifier}+bracketleft" = "exec --no-startup-id grimshot --notify  save area /tmp/scrot-$(date \"+%Y-%m-%d\"T\"%H:%M:%S\").png";
-        "${modifier}+bracketright" = "exec --no-startup-id grimshot --notify  copy area";
-        "${modifier}+Shift+Ctrl+l" = "exec loginctl lock-session";
-        "XF86MonBrightnessDown" = "exec light -U 10";
-        "XF86MonBrightnessUp" = "exec light -A 10";
-        "XF86AudioRaiseVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ +1%'";
-        "XF86AudioLowerVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ -1%'";
-        "XF86AudioMute" = "exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'";
-        "XF86Display" = "exec 'swaymsg \"output eDP-1 toggle\"'";
-      };
+        inherit (config.wayland.windowManager.sway.config) modifier;
+      in
+        lib.mkOptionDefault {
+          Prior = "nop";
+          Next = "nop";
+          "${modifier}+x" = "kill";
+          "${modifier}+space" = "exec ${pkgs.dmenu}/bin/dmenu_path | ${pkgs.dmenu}/bin/dmenu | ${pkgs.findutils}/bin/xargs swaymsg exec --";
+          "${modifier}+bracketleft" = "exec --no-startup-id grimshot --notify  save area /tmp/scrot-$(date \"+%Y-%m-%d\"T\"%H:%M:%S\").png";
+          "${modifier}+bracketright" = "exec --no-startup-id grimshot --notify  copy area";
+          "${modifier}+Shift+Ctrl+l" = "exec loginctl lock-session";
+          "XF86MonBrightnessDown" = "exec light -U 10";
+          "XF86MonBrightnessUp" = "exec light -A 10";
+          "XF86AudioRaiseVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ +1%'";
+          "XF86AudioLowerVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ -1%'";
+          "XF86AudioMute" = "exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'";
+          "XF86Display" = "exec 'swaymsg \"output eDP-1 toggle\"'";
+        };
       assigns = {
         "9" = [
-          { class = "discord";}
-          { class = "Signal";}
+          {class = "discord";}
+          {class = "Signal";}
         ];
       };
       bars = [
@@ -140,8 +145,8 @@
       };
     };
     extraConfig = ''
-    bindswitch --reload --locked lid:on exec "[ $(swaymsg -t get_outputs | jq '. | length') -gt 1 ] && swaymsg output eDP-1 disable"
-    bindswitch --reload --locked lid:off output eDP-1 enable
+      bindswitch --reload --locked lid:on exec "[ $(swaymsg -t get_outputs | jq '. | length') -gt 1 ] && swaymsg output eDP-1 disable"
+      bindswitch --reload --locked lid:off output eDP-1 enable
     '';
   };
   programs.i3status = {
@@ -169,14 +174,14 @@
           format_up = "%signal";
         };
       };
-      "memory" =  {
+      "memory" = {
         settings = {
           format = "%used";
           format_degraded = "%used";
           threshold_degraded = "1G";
         };
       };
-      "battery all" =  {
+      "battery all" = {
         settings = {
           format = "%percentage%status %remaining";
           status_chr = "+";

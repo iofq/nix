@@ -1,5 +1,4 @@
-{ inputs, ... }:
-{
+{inputs, ...}: {
   programs.home-manager.enable = true;
   nix = {
     registry.nixpkgs.flake = inputs.nixpkgs;
@@ -12,6 +11,6 @@
       };
     };
   };
-  imports = [ ./shared/programs/min.nix ];
+  imports = [./shared/programs/min.nix];
   xdg.enable = true;
 }

@@ -1,10 +1,9 @@
-{ host, ... }:
-{
+{host, ...}: {
   users.groups.plugdev = {}; # Create plugdev group
   networking.hostName = host.hostName;
   users.users.${host.username} = {
     isNormalUser = true;
-    extraGroups = [ 
+    extraGroups = [
       "wheel"
       "plugdev"
       "video"
@@ -15,7 +14,7 @@
   # Enable flakes and unfree packages
   nix.settings = {
     auto-optimise-store = true;
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = ["nix-command" "flakes"];
   };
   nix.gc = {
     automatic = true;
