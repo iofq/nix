@@ -1,4 +1,4 @@
-{ packages, host, system, ... }:
+{ host, ... }:
 {
   users.groups.plugdev = {}; # Create plugdev group
   networking.hostName = host.hostName;

@@ -1,5 +1,4 @@
-{ inputs, pkgs, attrs, system, ... }:
-{
+{ inputs, pkgs, attrs, system, ... }: {
   t14 = inputs.nixpkgs.lib.nixosSystem {
     specialArgs = {
       inherit inputs system pkgs;
@@ -16,7 +15,6 @@
   };
   rknrd = inputs.nixpkgs.lib.nixosSystem {
     specialArgs = {
-      inherit inputs system pkgs;
       host = {
         hostName = "rknrd";
         username = attrs.username;
@@ -30,6 +28,13 @@
   htz = inputs.nixpkgs.lib.nixosSystem {
     specialArgs = {
       inherit inputs system pkgs;
+      addressList = {
+        vm-test = {
+          ipv4 = "10.0.0.2";
+          subnet = "/24";
+          mac = "02:00:00:00:00:01";
+        };
+      };
       host = {
         hostName = "htz";
         username = attrs.username;

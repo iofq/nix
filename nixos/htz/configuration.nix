@@ -1,22 +1,30 @@
-{ pkgs, ... }: {
+{ pkgs, addressList, ... }: {
   imports = [
     ./hardware-configuration.nix
-    ./vms.nix
-    #./eth.nix
+    ./vms
+#./eth.nix
   ];
   environment.systemPackages = with pkgs; [
     nfs-utils
     vim
   ];
-  boot.tmp.cleanOnBoot = true;
-  zramSwap.enable = false;
-  networking.hostName = "htz";
-  networking.domain = "";
-  networking.firewall = {
-    enable = true;
-    allowedTCPPorts = [22];
-    allowedUDPPorts = [];
-    logRefusedConnections = true;
+  networking = {
+    hostName = "htz";
+    domain = "";
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [22];
+      allowedUDPPorts = [];
+      logRefusedConnections = true;
+    };
+    nat = {
+      enable = true;
+      forwardPorts = [ {
+        proto = "tcp";
+        sourcePort = 80;
+        destination = addressList.vm-test.ipv4;
+      } ];
+    };
   };
   services.openssh.enable = true;
   users.users = {
@@ -37,4 +45,5 @@
   };
   security.sudo.wheelNeedsPassword = false;
   nix.settings.trusted-users = ["e"];
+  system.stateVersion = "23.11"; 
 }

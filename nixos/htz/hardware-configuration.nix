@@ -1,9 +1,9 @@
 { modulesPath, lib, ... }:
 {
-  system.stateVersion = "23.11"; 
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   boot = {
+    tmp.cleanOnBoot = true;
     loader.grub = {
       efiSupport = true;
       efiInstallAsRemovable = true;
@@ -30,11 +30,14 @@
   swapDevices = [{
     device = "/dev/dm-1";
   }];
-  networking.useNetworkd = true;
-  networking.nat = {
-    enable = true;
-    externalInterface = "enp0s31f6";
-    internalInterfaces = [ "microvm" ];
+  zramSwap.enable = false;
+  networking = {
+    useNetworkd = true;
+    nat = {
+      enable = true;
+      externalInterface = "enp0s31f6";
+      internalInterfaces = [ "microvm" ];
+    };
   };
   systemd.network = {
     enable = true;
