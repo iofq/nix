@@ -7,7 +7,7 @@
 }: {
   t14 = inputs.nixpkgs.lib.nixosSystem {
     specialArgs = {
-      inherit inputs system pkgs;
+      inherit inputs system pkgs attrs;
       host = {
         hostName = "t14";
         inherit (attrs) username;
@@ -36,10 +36,10 @@
     specialArgs = {
       inherit inputs system pkgs;
       addressList = {
-        vm-test = {
+        vm-headscale = {
           ipv4 = "10.0.0.2";
           subnet = "/24";
-          mac = "02:00:00:00:00:01";
+          mac = "02:00:00:00:00:02";
         };
       };
       host = {

@@ -1,4 +1,11 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  attrs,
+  ...
+}: let
+  # Horrid workaround for https://github.com/nix-community/home-manager/issues/1011
+  homeManagerSessionVars = "/etc/profiles/per-user/${attrs.username}/etc/profile.d/hm-session-vars.sh";
+in {
   imports = [
     ./hardware-configuration.nix
     ./nano.nix
@@ -6,22 +13,44 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.networkmanager.enable = true;
-  networking.firewall = {
-    enable = true;
-    allowedTCPPorts = [11111 80];
-    allowedUDPPorts = [];
-    logRefusedConnections = true;
-  };
   environment.systemPackages = with pkgs; [
     cryptsetup
     nfs-utils
+    comma
   ];
+  environment.extraInit = "[[ -f ${homeManagerSessionVars} ]] && source ${homeManagerSessionVars} && echo 'x' > /tmp/test";
+
+  # Networking
+  networking = {
+    nameservers = ["1.1.1.1#one.one.one.one"];
+    networkmanager = {
+      enable = true;
+      dns = "systemd-resolved";
+    };
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [11111];
+      allowedUDPPorts = [];
+      trustedInterfaces = ["tailscale0"];
+      logRefusedConnections = true;
+    };
+  };
+  services.resolved = {
+    enable = true;
+    fallbackDns = [
+      "1.1.1.1#one.one.one.one"
+    ];
+    extraConfig = ''
+      DNSOverTLS=yes
+    '';
+  };
+  services.tailscale.enable = true;
+
+  # Services
   virtualisation.podman = {
     enable = true;
     dockerCompat = true;
   };
-
   programs.light.enable = true;
   security.pam.services.swaylock = {};
   services.pipewire = {
@@ -81,13 +110,14 @@
     };
   };
 
-  hardware.opengl.enable = true;
-  hardware.opengl.extraPackages = [
-    pkgs.mesa.drivers
-    pkgs.libGL
-  ];
-  hardware.opengl.setLdLibraryPath = true;
-
+  hardware.opengl = {
+    enable = true;
+    setLdLibraryPath = true;
+    extraPackages = [
+      pkgs.mesa.drivers
+      pkgs.libGL
+    ];
+  };
   boot.kernelPackages = pkgs.linuxPackages_latest;
   system.stateVersion = "22.11";
 }

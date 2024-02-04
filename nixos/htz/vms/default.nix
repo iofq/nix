@@ -1,44 +1,8 @@
-{
-  lib,
-  pkgs,
-  addressList,
-  ...
-}: let
-  genVMConfig = {
-    name,
-    config ? {},
-    ro-store ? true,
-  }: {
-    restartIfChanged = true;
-    inherit pkgs;
-    config =
-      config
-      // {
-        microvm = {
-          shares = lib.mkIf ro-store [
-            {
-              source = "/nix/store";
-              mountPoint = "/nix/.ro-store";
-              tag = "ro-store";
-              proto = "virtiofs";
-            }
-          ];
-          interfaces = [
-            {
-              type = "tap";
-              id = name;
-              inherit (addressList.${name}) mac;
-            }
-          ];
-        };
-      }
-      // import ./vmDefaults.nix {inherit name addressList;};
-  };
-in {
+_: {
   microvm.vms = {
-    vm-test = genVMConfig {
-      name = "vm-test";
-      config = import ./vm-test.nix {inherit pkgs addressList;};
-    };
+    # vm-headscale = genVMConfig {
+    #   name = "vm-headscale";
+    #   config = import ./headscale.nix { inherit config; };
+    # };
   };
 }

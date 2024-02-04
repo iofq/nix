@@ -12,6 +12,7 @@
     homeDirectory = "/home/" + attrs.username;
     packages = with pkgs; [
       # gaming
+      steam
       prismlauncher
       runelite
       jdk17

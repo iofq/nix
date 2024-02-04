@@ -13,6 +13,11 @@ _: {
     extraConfig = {
       core.editor = "nvim";
     };
+    signing = {
+      key = "cjriddz@protonmail.com";
+      signByDefault = true;
+    };
+    extraConfig.pull.rebase = true;
     aliases = {
       a = "add . -p";
       s = "status";

@@ -1,40 +1,54 @@
 {
   modulesPath,
   lib,
+  config,
   ...
 }: {
-  imports = [(modulesPath + "/profiles/qemu-guest.nix")];
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  imports = [(modulesPath + "/installer/scan/not-detected.nix")];
   boot = {
+    kernelModules = ["kvm-intel"];
     tmp.cleanOnBoot = true;
     loader.grub = {
       efiSupport = true;
       efiInstallAsRemovable = true;
       device = "nodev";
     };
-    initrd.availableKernelModules = [
-      "ata_piix"
-      "uhci_hcd"
-      "xen_blkfront"
-      "vmw_pvscsi"
-    ];
-    initrd.kernelModules = ["nvme"];
+    initrd = {
+      kernelModules = ["nvme" "dm-snapshot"];
+      availableKernelModules = [
+        "ahci"
+        "ata_piix"
+        "sd_mod"
+        "uhci_hcd"
+        "vmw_pvscsi"
+        "xen_blkfront"
+        "xhci_pci"
+      ];
+    };
   };
-  fileSystems = {
-    "/boot" = {
-      device = "/dev/disk/by-uuid/8480-5FBB";
-      fsType = "vfat";
-    };
-    "/" = {
-      device = "/dev/mapper/ssd1-root";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/2d5aa5d0-e6c5-4b5d-b295-d5248da994fc";
+    fsType = "ext4";
+  };
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/8480-5FBB";
+    fsType = "vfat";
+  };
+
+  fileSystems."/eth1" = {
+    device = "/dev/disk/by-uuid/d674ba1d-dde0-4c8d-bdc7-0cb240d6de62";
+    fsType = "ext4";
+  };
+
+  fileSystems."/eth2" = {
+    device = "/dev/disk/by-uuid/c2c7cf35-dc97-4ca3-823f-1e892bcba6f5";
+    fsType = "ext4";
   };
   swapDevices = [
-    {
-      device = "/dev/dm-1";
-    }
+    {device = "/dev/disk/by-uuid/d4b0d80e-d570-4d21-bbe4-0f31bd50cbcc";}
   ];
+
   zramSwap.enable = false;
   networking = {
     useNetworkd = true;
@@ -71,4 +85,6 @@
       };
     };
   };
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
