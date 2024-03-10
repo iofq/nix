@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   attrs,
   ...
 }: {
@@ -19,7 +20,7 @@
 
       # comms
       signal-desktop
-      discord
+      # discord # using Webcord via flatpak
 
       # apps
       chromium
@@ -43,12 +44,8 @@
         hostname = "htz.10110110.xyz";
         identityFile = "/home/e/.ssh/id_ed25519";
       };
-      "consensus" = {
-        hostname = "consensus";
-        identityFile = "/home/e/.ssh/id_ed25519";
-      };
     };
   };
-  fonts.fontconfig.enable = true;
+  fonts.fontconfig.enable = lib.mkForce true;
   systemd.user.startServices = "sd-switch";
 }

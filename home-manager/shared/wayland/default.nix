@@ -2,8 +2,18 @@
   imports = [
     ./librewolf
     ./alacritty
-    (import ./sway)
+    ./sway
+    ./hyprland
     ./xdg
     ./audio
   ];
+
+  programs.bemenu = {
+    enable = true;
+    settings = {
+      ignorecase = true;
+      fn = "UbuntuMono";
+      prompt = "open";
+    };
+  };
 }

@@ -105,14 +105,15 @@
             size = 12.0;
           };
           colors = {
+            background = "#090410";
             statusline = "#666666";
             focusedWorkspace = {
-              background = "#000000";
+              background = "#090410";
               border = "#666666";
               text = "#666666";
             };
             inactiveWorkspace = {
-              background = "#000000";
+              background = "#090410";
               border = "#000000";
               text = "#666666";
             };
@@ -140,7 +141,7 @@
       };
       output = {
         "*" = {
-          bg = "#000000 solid_color";
+          bg = "#090410 solid_color";
         };
       };
     };

@@ -47,9 +47,12 @@ in {
   services.tailscale.enable = true;
 
   # Services
-  virtualisation.podman = {
-    enable = true;
-    dockerCompat = true;
+  virtualisation = {
+    libvirtd.enable = true;
+    podman = {
+      enable = true;
+      dockerCompat = true;
+    };
   };
   programs.light.enable = true;
   security.pam.services.swaylock = {};
@@ -63,21 +66,11 @@ in {
   };
   services.flatpak.enable = true;
   services.dbus.enable = true;
+  programs.hyprland.enable = true;
   xdg.portal = {
     enable = true;
-    xdgOpenUsePortal = true;
-    wlr.enable = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-      pkgs.xdg-desktop-portal-wlr
-    ];
-    config = {
-      common = {
-        default = [
-          "*"
-        ];
-      };
-    };
+    xdgOpenUsePortal = false;
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 
   services.tlp = {
@@ -87,13 +80,13 @@ in {
       CPU_BOOST_ON_BAT = "0";
       CPU_BOOST_ON_AC = "1";
 
-      PLATFORM_PROFILE_ON_AC = "performance";
+      PLATFORM_PROFILE_ON_AC = "low-power";
       PLATFORM_PROFILE_ON_BAT = "low-power";
-      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_SCALING_GOVERNOR_ON_AC = "powersave";
       CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
       CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+      CPU_ENERGY_PERF_POLICY_ON_AC = "power";
 
       CPU_MIN_PERF_ON_AC = 0;
       CPU_MAX_PERF_ON_AC = 100;
@@ -118,6 +111,12 @@ in {
       pkgs.libGL
     ];
   };
+  # Set a sane system-wide default font
+  fonts.packages = with pkgs; [
+    (nerdfonts.override {fonts = ["UbuntuMono"];})
+    spleen
+  ];
+  fonts.fontconfig.defaultFonts.monospace = ["UbuntuMono"];
   boot.kernelPackages = pkgs.linuxPackages_latest;
   system.stateVersion = "22.11";
 }

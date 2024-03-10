@@ -36,10 +36,17 @@
     specialArgs = {
       inherit inputs system pkgs;
       addressList = {
-        vm-headscale = {
+        vm-pool = {
+          name = "vm-pool";
           ipv4 = "10.0.0.2";
           subnet = "/24";
           mac = "02:00:00:00:00:02";
+        };
+        vm-k3s = {
+          name = "vm-k3s";
+          ipv4 = "10.0.0.3";
+          subnet = "/24";
+          mac = "02:00:00:00:00:03";
         };
       };
       host = {

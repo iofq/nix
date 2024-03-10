@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  addressList,
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ./vms
@@ -10,9 +15,10 @@
     bridge-utils
     comma
   ];
-  virtualisation.podman = {
-    enable = true;
-    dockerCompat = true;
+  virtualisation = {
+    docker = {
+      enable = true;
+    };
   };
   networking = {
     hostName = "htz";
@@ -22,7 +28,12 @@
       allowedTCPPorts = [22 80 443];
       allowedUDPPorts = [];
       logRefusedConnections = true;
+      trustedInterfaces = ["microvm"];
     };
+    # Map addressList to entries in /etc/hosts
+    extraHosts =
+      builtins.concatStringsSep "\n"
+      (lib.attrsets.mapAttrsToList (k: v: "${v.ipv4} ${k}") addressList);
   };
   fileSystems."/var/lib/private/nimbus-beacon-mainnet" = {
     device = "/eth2";
@@ -35,7 +46,13 @@
   services = let
     domain = "ts.10110110.xyz";
   in {
-    openssh.enable = true;
+    openssh = {
+      enable = true;
+      settings = {
+        PasswordAuthentication = false;
+        PermitRootLogin = "prohibit-password";
+      };
+    };
     tailscale.enable = true;
     headscale = {
       enable = true;
@@ -45,7 +62,6 @@
       dns = {baseDomain = domain;};
       settings = {logtail.enabled = false;};
     };
-
     nginx = {
       enable = true;
       virtualHosts.${domain} = {

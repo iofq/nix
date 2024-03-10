@@ -30,19 +30,20 @@
     device = "/dev/disk/by-uuid/2d5aa5d0-e6c5-4b5d-b295-d5248da994fc";
     fsType = "ext4";
   };
-
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/8480-5FBB";
     fsType = "vfat";
   };
-
   fileSystems."/eth1" = {
     device = "/dev/disk/by-uuid/d674ba1d-dde0-4c8d-bdc7-0cb240d6de62";
     fsType = "ext4";
   };
-
   fileSystems."/eth2" = {
     device = "/dev/disk/by-uuid/c2c7cf35-dc97-4ca3-823f-1e892bcba6f5";
+    fsType = "ext4";
+  };
+  fileSystems."/var/lib/microvms" = {
+    device = "/dev/disk/by-uuid/06af31e6-7ac6-4066-a56b-9feaae14508b";
     fsType = "ext4";
   };
   swapDevices = [
@@ -71,7 +72,12 @@
         matchConfig.Name = "microvm";
         networkConfig = {
           DHCPServer = true;
-          IPv6SendRA = true;
+          IPv6SendRA = false;
+        };
+        dhcpServerConfig = {
+          PoolOffset = 128;
+          PoolSize = 64;
+          EmitDNS = true;
         };
         addresses = [
           {
@@ -81,6 +87,10 @@
       };
       "11-microvm" = {
         matchConfig.Name = "vm-*";
+        networkConfig.Bridge = "microvm";
+      };
+      "12-microvm" = {
+        matchConfig.Name = "vnet*";
         networkConfig.Bridge = "microvm";
       };
     };

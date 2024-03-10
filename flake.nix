@@ -24,10 +24,13 @@
       url = "github:iofq/2fa";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ethereum-nix = {
-      # url = "github:nix-community/ethereum.nix";
-      url = "git+file:///home/e/dev/ethereum.nix/";
+    virt = {
+      url = "github:iofq/virt";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    ethereum-nix = {
+      url = "github:nix-community/ethereum.nix";
+      # url = "git+file:///home/e/dev/ethereum.nix/";
     };
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
@@ -55,6 +58,7 @@
       inherit system;
       config.allowUnfree = true;
       overlays = [
+        inputs.virt.overlay
         (final: _prev:
           {
             inherit (inputs.nvim.packages.${final.system}) full;
@@ -71,7 +75,7 @@
     deploy.nodes = {
       htz = {
         hostname = "htz";
-        sshUser = "root";
+        sshUser = "e";
         remoteBuild = true;
         profiles.system = {
           user = "root";

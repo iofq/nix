@@ -72,11 +72,4 @@
     historyWidgetOptions = ["--height 60% --preview ''"];
     fileWidgetCommand = "command find -L . -mindepth 1 -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' -prune";
   };
-  programs.mcfly = {
-    enable = true;
-    fzf.enable = false;
-    keyScheme = "vim";
-    interfaceView = "BOTTOM";
-    fuzzySearchFactor = 3;
-  };
 }

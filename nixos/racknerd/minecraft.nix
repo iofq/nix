@@ -9,7 +9,10 @@
       white-list = true;
       server-port = 25565;
       gamemode = "survival";
-      motd = "yooooooooooo";
+      enable-command-block = "true";
+      motd = "whaa";
+      max-players = "10";
+      view-distance = 16;
     };
     whitelist = {
       cjriddz = "cf36e5f7-6e7f-490a-ba76-65016338e7b4";
