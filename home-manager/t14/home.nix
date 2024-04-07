@@ -20,10 +20,15 @@
 
       # comms
       signal-desktop
-      # discord # using Webcord via flatpak
+      discord
 
       # apps
       chromium
+      pcmanfm
+      feh
+      ffmpeg
+      mpv
+      wdisplays
 
       # font
       spleen

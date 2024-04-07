@@ -13,7 +13,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:iofq/home-manager";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nvim = {
@@ -24,13 +24,9 @@
       url = "github:iofq/2fa";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    virt = {
-      url = "github:iofq/virt";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     ethereum-nix = {
-      url = "github:nix-community/ethereum.nix";
-      # url = "git+file:///home/e/dev/ethereum.nix/";
+      #url = "github:nix-community/ethereum.nix";
+      url = "git+file:///home/e/dev/ethereum.nix/";
     };
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
@@ -40,13 +36,18 @@
       url = "github:astro/microvm.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = {
     self,
     nixpkgs,
-    home-manager,
-    nvim,
-    deploy-rs,
     systems,
     ...
   } @ inputs: let
@@ -58,7 +59,6 @@
       inherit system;
       config.allowUnfree = true;
       overlays = [
-        inputs.virt.overlay
         (final: _prev:
           {
             inherit (inputs.nvim.packages.${final.system}) full;
@@ -79,7 +79,7 @@
         remoteBuild = true;
         profiles.system = {
           user = "root";
-          path = deploy-rs.lib.${system}.activate.nixos self.nixosConfigurations.htz;
+          path = inputs.deploy-rs.lib.${system}.activate.nixos self.nixosConfigurations.htz;
         };
       };
       racknerd = {
@@ -88,7 +88,7 @@
         remoteBuild = true;
         profiles.system = {
           user = "root";
-          path = deploy-rs.lib.${system}.activate.nixos self.nixosConfigurations.rknrd;
+          path = inputs.deploy-rs.lib.${system}.activate.nixos self.nixosConfigurations.rknrd;
         };
       };
     };
@@ -108,7 +108,10 @@
         pkgs.nix
         pkgs.home-manager
         pkgs.git
-        deploy-rs.packages.${system}.deploy-rs
+        pkgs.ssh-to-age
+        pkgs.sops
+        pkgs.age
+        inputs.deploy-rs.packages.${system}.deploy-rs
         treefmtEval.${system}.config.build.wrapper
       ];
     };

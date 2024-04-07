@@ -9,6 +9,7 @@ in {
   imports = [
     ./hardware-configuration.nix
     ./nano.nix
+    ./backups.nix
   ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -16,7 +17,6 @@ in {
   environment.systemPackages = with pkgs; [
     cryptsetup
     nfs-utils
-    comma
   ];
   environment.extraInit = "[[ -f ${homeManagerSessionVars} ]] && source ${homeManagerSessionVars} && echo 'x' > /tmp/test";
 
@@ -48,7 +48,6 @@ in {
 
   # Services
   virtualisation = {
-    libvirtd.enable = true;
     podman = {
       enable = true;
       dockerCompat = true;
@@ -77,29 +76,8 @@ in {
     enable = true;
     settings = {
       WIFI_PWR_ON_BAT = "off";
-      CPU_BOOST_ON_BAT = "0";
-      CPU_BOOST_ON_AC = "1";
-
-      PLATFORM_PROFILE_ON_AC = "low-power";
-      PLATFORM_PROFILE_ON_BAT = "low-power";
-      CPU_SCALING_GOVERNOR_ON_AC = "powersave";
-      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-
-      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-      CPU_ENERGY_PERF_POLICY_ON_AC = "power";
-
-      CPU_MIN_PERF_ON_AC = 0;
-      CPU_MAX_PERF_ON_AC = 100;
-      CPU_MIN_PERF_ON_BAT = 0;
-      CPU_MAX_PERF_ON_BAT = 25;
-      RADEON_DPM_STATE_ON_AC = "performance";
-      RADEON_DPM_STATE_ON_BAT = "battery";
-      RADEON_POWER_PROFILE_ON_AC = "high";
-      RADEON_POWER_PROFILE_ON_BAT = "low";
-
-      #Optional helps save long term battery health
-      START_CHARGE_THRESH_BAT0 = 80; # bellow it starts to charge
-      STOP_CHARGE_THRESH_BAT0 = 95; # above it stops charging
+      START_CHARGE_THRESH_BAT0 = 80;
+      STOP_CHARGE_THRESH_BAT0 = 85;
     };
   };
 

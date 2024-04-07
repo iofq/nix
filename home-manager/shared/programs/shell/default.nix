@@ -1,9 +1,17 @@
-{host, ...}: {
+{
+  host,
+  pkgs,
+  ...
+}: {
   imports = [
     ./tmux.nix
     ./git.nix
-    ./direnv.nix
   ];
+  home = {
+    packages = with pkgs; [
+      tree
+    ];
+  };
   programs.bash = {
     enable = true;
     enableCompletion = true;
@@ -71,5 +79,10 @@
     enable = true;
     historyWidgetOptions = ["--height 60% --preview ''"];
     fileWidgetCommand = "command find -L . -mindepth 1 -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' -prune";
+  };
+  programs.direnv = {
+    enable = true;
+    enableBashIntegration = true;
+    nix-direnv.enable = true;
   };
 }

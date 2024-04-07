@@ -10,7 +10,7 @@
     python3
     p7zip
     gnumake
-    gcc
     go
+    jq
   ];
 }

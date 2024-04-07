@@ -7,6 +7,7 @@
     role = "server";
     extraFlags = toString [
       "--disable traefik"
+      "--tls-san vm-k3s.tailc353f.ts.net"
     ];
   };
   networking.firewall = {
@@ -21,7 +22,7 @@
         image = "/var/lib/microvms/vm-k3s/vm-k3s-root.img";
         label = "vm-pool-root";
         mountPoint = "/";
-        size = 10000;
+        size = 100000;
       }
     ];
   };

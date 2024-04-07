@@ -1,8 +1,6 @@
 {
-  inputs,
   lib,
   pkgs,
-  system,
   addressList,
   ...
 }: let
@@ -93,10 +91,6 @@
   };
 in {
   microvm.vms = {
-    vm-pool = genVMConfig {
-      name = "vm-pool";
-      config = import ./pool.nix {inherit pkgs system inputs;};
-    };
     vm-k3s = genVMConfig {
       name = "vm-k3s";
       config = import ./k3s.nix {inherit pkgs;};

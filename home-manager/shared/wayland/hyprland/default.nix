@@ -4,7 +4,7 @@
     package = pkgs.hyprland;
     systemd.enable = true;
     extraConfig = ''
-      monitor=,preferred,auto,1"
+      monitor=,preferred,auto,1
     '';
     settings = {
       "$mod" = "SUPER";
@@ -86,6 +86,8 @@
           ## Movement
           "$mod, p, layoutmsg, swapwithmaster"
           "$mod, e, layoutmsg, orientationnext"
+          "$mod, i, layoutmsg, addmaster"
+          "$mod, d, layoutmsg, removemaster"
           "$mod, h, movefocus, l"
           "$mod, l, movefocus, r"
           "$mod, k, movefocus, u"

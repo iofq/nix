@@ -1,0 +1,11 @@
+keys:
+  - &t14 age14e2d2y8e2avzfrsyxg9dudxd36svm24t7skw6e969n0c42znlp3shffdtg
+  - &racknerd age19qx3e78c9f2l7ceccgjf7ksvc873ungjely3nyxyjts2xsz0ldjq6shksm
+  - &ocx age1xwcz9qtaezjy4kl6xttea0u00j7j2n8xkd297vjz9xrnqx9fksjsg3nhu3
+creation_rules:
+  - path_regex: secrets/[^/]+\.yaml$
+    key_groups:
+    - age:
+        - *t14
+        - *racknerd
+        - *ocx

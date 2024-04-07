@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   imports = [
     ./librewolf
     ./alacritty
@@ -8,6 +8,12 @@
     ./audio
   ];
 
+  home.packages = with pkgs; [
+    wdisplays
+    wl-clipboard
+    gammastep
+    sway-contrib.grimshot
+  ];
   programs.bemenu = {
     enable = true;
     settings = {

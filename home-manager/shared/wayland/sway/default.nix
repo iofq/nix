@@ -5,11 +5,7 @@
   ...
 }: {
   home.packages = with pkgs; [
-    wl-clipboard
     autotiling-rs
-    gammastep
-    sway-contrib.grimshot
-    jq
   ];
   home.sessionVariables = {
     # needed for Sway and Firefox to play nice

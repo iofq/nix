@@ -10,23 +10,14 @@
     ./eth.nix
   ];
   environment.systemPackages = with pkgs; [
-    vim
     git
     bridge-utils
-    comma
   ];
-  virtualisation = {
-    docker = {
-      enable = true;
-    };
-  };
   networking = {
     hostName = "htz";
-    domain = "";
     firewall = {
       enable = true;
-      allowedTCPPorts = [22 80 443];
-      allowedUDPPorts = [];
+      allowedTCPPorts = [22];
       logRefusedConnections = true;
       trustedInterfaces = ["microvm"];
     };
@@ -43,9 +34,8 @@
     device = "/eth1";
     options = ["bind"];
   };
-  services = let
-    domain = "ts.10110110.xyz";
-  in {
+  services = {
+    tailscale.enable = true;
     openssh = {
       enable = true;
       settings = {
@@ -53,30 +43,6 @@
         PermitRootLogin = "prohibit-password";
       };
     };
-    tailscale.enable = true;
-    headscale = {
-      enable = true;
-      address = "0.0.0.0";
-      port = 8080;
-      serverUrl = "https://${domain}";
-      dns = {baseDomain = domain;};
-      settings = {logtail.enabled = false;};
-    };
-    nginx = {
-      enable = true;
-      virtualHosts.${domain} = {
-        forceSSL = true;
-        enableACME = true;
-        locations."/" = {
-          proxyPass = "http://localhost:8080";
-          proxyWebsockets = true;
-        };
-      };
-    };
-  };
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = "mail@10110110.xyz";
   };
   users.users = {
     root = {
