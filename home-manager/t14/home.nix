@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  attrs,
   ...
 }: {
   imports = [
@@ -9,8 +8,6 @@
     ../shared/wayland/default.nix
   ];
   home = {
-    inherit (attrs) username;
-    homeDirectory = "/home/" + attrs.username;
     packages = with pkgs; [
       # gaming
       steam

@@ -22,6 +22,7 @@
     inherit pkgs;
     extraSpecialArgs = {
       inherit inputs attrs;
+      targets.genericLinux.enable = true;
       host = {
         hostName = "e";
         inherit (attrs) username;
@@ -29,6 +30,7 @@
     };
     modules = [
       ./home.nix
+      ./min.nix
     ];
   };
 }
