@@ -15,7 +15,7 @@ _: {
     };
     signing = {
       key = "cjriddz@protonmail.com";
-      signByDefault = true;
+      signByDefault = false;
     };
     extraConfig.pull.rebase = true;
     aliases = {
