@@ -26,6 +26,7 @@
       ffmpeg
       mpv
       wdisplays
+      piper
 
       # font
       spleen

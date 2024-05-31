@@ -1,7 +1,6 @@
 {pkgs, ...}: {
   wayland.windowManager.hyprland = {
     enable = true;
-    package = pkgs.hyprland;
     systemd.enable = true;
     extraConfig = ''
       monitor=,preferred,auto,1

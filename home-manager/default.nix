@@ -4,6 +4,7 @@
   attrs,
   ...
 }: {
+  inputs.home-manager.useGlobalPkgs = true;
   "e" = inputs.home-manager.lib.homeManagerConfiguration {
     inherit pkgs;
     extraSpecialArgs = {

@@ -78,6 +78,26 @@ in {
       WIFI_PWR_ON_BAT = "off";
       START_CHARGE_THRESH_BAT0 = 80;
       STOP_CHARGE_THRESH_BAT0 = 85;
+      RADEON_DPM_STATE_ON_AC = "performance";
+      RADEON_DPM_STATE_ON_BAT = "battery";
+      RADEON_POWER_PROFILE_ON_AC = "high";
+      RADEON_POWER_PROFILE_ON_BAT = "low";
+    };
+  };
+
+  services.ratbagd.enable = true; # Logitech
+  services.keyd = {
+    enable = true;
+    keyboards = {
+      default = {
+        ids = ["*"];
+        settings = {
+          main = {
+            pause = "esc";
+            scrolllock = "layer(shift)";
+          };
+        };
+      };
     };
   };
 
