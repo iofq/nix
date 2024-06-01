@@ -93,7 +93,7 @@ in {
         ids = ["*"];
         settings = {
           main = {
-            pause = "esc";
+            pause = "timeout(esc, 150, space)";
             scrolllock = "layer(shift)";
           };
         };

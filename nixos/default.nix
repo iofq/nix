@@ -41,29 +41,4 @@ in {
         ./racknerd/configuration.nix
       ];
   };
-  htz = inputs.nixpkgs.lib.nixosSystem {
-    specialArgs = {
-      inherit inputs system pkgs;
-      addressList = {
-        vm-k3s = {
-          name = "vm-k3s";
-          ipv4 = "10.0.0.3";
-          subnet = "/24";
-          mac = "02:00:00:00:00:03";
-        };
-      };
-      host = {
-        hostName = "htz";
-        inherit (attrs) username;
-      };
-    };
-    modules =
-      defaultModules
-      ++ [
-        ./configuration.nix
-        ./htz/configuration.nix
-        inputs.ethereum-nix.nixosModules.default
-        inputs.microvm.nixosModules.host
-      ];
-  };
 }
