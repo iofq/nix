@@ -3,6 +3,5 @@
     pulseaudio
     pulsemixer
     alsa-utils
-    mpv
   ];
 }

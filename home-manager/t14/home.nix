@@ -20,7 +20,7 @@
       discord
 
       # apps
-      (chromium.override {commandLineArgs = "--load-media-router-component-extension=1";})
+      (chromium.override {commandLineArgs = "--load-media-router-component-extension=1";}) #chromecast
       pcmanfm
       feh
       ffmpeg
