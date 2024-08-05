@@ -29,9 +29,6 @@
         inherit (attrs) username;
       };
     };
-    modules = [
-      ./home.nix
-      ./min.nix
-    ];
+    modules = [./home.nix];
   };
 }

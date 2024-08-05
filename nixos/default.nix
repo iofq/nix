@@ -26,19 +26,4 @@ in {
         inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen1
       ];
   };
-  rknrd = inputs.nixpkgs.lib.nixosSystem {
-    specialArgs = {
-      inherit inputs system pkgs;
-      host = {
-        hostName = "rknrd";
-        inherit (attrs) username;
-      };
-    };
-    modules =
-      defaultModules
-      ++ [
-        ./configuration.nix
-        ./racknerd/configuration.nix
-      ];
-  };
 }

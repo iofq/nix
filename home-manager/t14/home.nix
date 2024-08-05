@@ -13,20 +13,22 @@
       steam
       prismlauncher
       runelite
-      jdk17
+      jdk21
 
       # comms
       signal-desktop
       discord
 
       # apps
-      chromium
+      (chromium.override {commandLineArgs = "--load-media-router-component-extension=1";})
       pcmanfm
       feh
       ffmpeg
       mpv
+      vlc
       wdisplays
       piper
+      calibre
 
       # font
       spleen
@@ -46,6 +48,10 @@
       "htz" = {
         hostname = "htz.10110110.xyz";
         identityFile = "/home/e/.ssh/id_ed25519";
+      };
+      "ocx" = {
+        hostname = "ocx.10110110.xyz";
+        identityFile = "/home/e/.ssh/oracle";
       };
     };
   };

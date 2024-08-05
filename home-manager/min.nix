@@ -1,5 +1,0 @@
-_: {
-  home = {
-    username = "e";
-  };
-}

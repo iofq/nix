@@ -12,5 +12,6 @@
     gnumake
     go
     jq
+    awscli
   ];
 }

@@ -25,7 +25,9 @@
         OnCalendar = "01:00";
       };
       pruneOpts = [
-        "--keep-last 14"
+        "--keep-daily 14"
+        "--keep-monthly 6"
+        "--keep-yearly 1"
       ];
     };
   };
